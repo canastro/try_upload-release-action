@@ -1,0 +1,20 @@
+name: tag
+
+  push:
+    tags:
+      - '*'
+
+jobs:
+
+      # To ensure that we keep the permissions on executables
+      - name: 'Tar build artifacts'
+        run: tar -cvf sample.tar sample.app
+
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: sample.tar
+          tag: ${{ github.ref }}
+          overwrite: true
+          file_glob: true
