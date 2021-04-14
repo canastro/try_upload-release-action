@@ -1,11 +1,14 @@
 name: tag
 
+on:
   push:
     tags:
       - '*'
 
 jobs:
-
+  upload:
+    runs-on: ubuntu-latest
+    steps:
       # To ensure that we keep the permissions on executables
       - name: 'Tar build artifacts'
         run: tar -cvf sample.tar sample.app
